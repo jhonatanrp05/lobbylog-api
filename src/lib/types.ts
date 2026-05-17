@@ -16,6 +16,13 @@ export interface CreateUserInput {
   unit?: string;
 }
 
+export interface Package {
+  description: string;
+  photoUrl?: string;
+  recipientId: string;
+  porterId: string;
+}
+
 declare global {
   namespace Express {
     interface Request {
