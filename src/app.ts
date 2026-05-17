@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 
 const port = 3000;
 
 const app = express();
 app.use(express.json());
 app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({ status: "OK" });
