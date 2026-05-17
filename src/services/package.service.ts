@@ -4,6 +4,7 @@ import {
   findPackagesByRecipient,
   findPackageById,
   updatePackageStatus,
+  findPackagesByPorter,
 } from "../repositories/package.repository";
 import { AppError, Package } from "../lib/types";
 
@@ -17,6 +18,10 @@ export const getAllPackages = async () => {
 
 export const getMyPackages = async (recipientId: string) => {
   return await findPackagesByRecipient(recipientId);
+};
+
+export const getMyLoggedPackages = async (porterId: string) => {
+  return await findPackagesByPorter(porterId);
 };
 
 export const deliverPackage = async (id: string) => {

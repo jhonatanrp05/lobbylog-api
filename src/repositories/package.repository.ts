@@ -17,6 +17,12 @@ export const findPackagesByRecipient = async (recipientId: string) => {
   });
 };
 
+export const findPackagesByPorter = async (porterId: string) => {
+  return await prisma.package.findMany({
+    where: { porterId },
+  });
+};
+
 export const findPackageById = async (id: string) => {
   return await prisma.package.findUnique({ where: { id } });
 };

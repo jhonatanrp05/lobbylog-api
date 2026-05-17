@@ -7,6 +7,7 @@ import {
   getMyPackages,
   deliverPackage,
   confirmPackage,
+  getMyLoggedPackages,
 } from "../services/package.service";
 
 export const createPackageController = async (req: Request, res: Response) => {
@@ -32,6 +33,19 @@ export const createPackageController = async (req: Request, res: Response) => {
 export const getAllPackagesController = async (req: Request, res: Response) => {
   try {
     const packages = await getAllPackages();
+    res.status(200).json(packages);
+  } catch (error) {
+    res.status(500).json({ error: "An unexpected error occurred." });
+  }
+};
+
+export const getMyLoggedPackagesController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const porterId = req.user!.id;
+    const packages = await getMyLoggedPackages(porterId);
     res.status(200).json(packages);
   } catch (error) {
     res.status(500).json({ error: "An unexpected error occurred." });

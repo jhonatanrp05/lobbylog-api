@@ -7,6 +7,7 @@ import {
   getMyPackagesController,
   deliverPackageController,
   confirmPackageController,
+  getMyLoggedPackagesController,
 } from "../controllers/package.controller";
 
 const router = Router();
@@ -16,6 +17,12 @@ router.get(
   authMiddleware,
   roleMiddleware("ADMIN"),
   getAllPackagesController,
+);
+router.get(
+  "/my-logged",
+  authMiddleware,
+  roleMiddleware("RECEPTIONIST"),
+  getMyLoggedPackagesController,
 );
 router.post(
   "/",
