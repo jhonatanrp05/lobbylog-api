@@ -1,6 +1,9 @@
 import {
   findUserByEmail,
   createUser as createUserInDB,
+  deleteUserById,
+  findAllUsers,
+  findUserById,
 } from "../repositories/user.repository";
 import { CreateUserInput, AppError } from "../lib/types";
 import bcrypt from "bcryptjs";
@@ -22,4 +25,16 @@ export const createUser = async (data: CreateUserInput) => {
   });
 
   return { email: user.email, password };
+};
+
+export const deleteUser = async (id: string) => {
+  const user = await findUserById(id);
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+  return await deleteUserById(user.id);
+};
+
+export const getAllUsers = async () => {
+  return await findAllUsers();
 };

@@ -14,3 +14,21 @@ export const findUserByEmail = async (email: string) => {
     },
   });
 };
+
+export const findAllUsers = async () => {
+  return await prisma.user.findMany({
+    select: { id: true, name: true, email: true, role: true, unit: true },
+  });
+};
+
+export const findUserById = async (id: string) => {
+  return await prisma.user.findUnique({
+    where: { id: id },
+  });
+};
+
+export const deleteUserById = async (id: string) => {
+  return await prisma.user.delete({
+    where: { id: id },
+  });
+};
