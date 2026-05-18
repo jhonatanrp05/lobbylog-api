@@ -21,7 +21,7 @@ LobbyLog is a package delivery management system designed for residential comple
 1. Clone the repository
 
 ```bash
-git clone https://github.com/tu-usuario/lobbylog-api.git
+git clone https://github.com/jhonatanrp05/lobbylog-api.git
 cd lobbylog-api
 ```
 
@@ -34,7 +34,7 @@ pnpm install
 3. Create a `.env` file in the root with:
 
 ```
-DATABASE_URL="file:./prisma/dev.db"
+DATABASE_URL="file:./dev.db"
 JWT_SECRET="your_secret_key"
 ```
 
@@ -66,12 +66,12 @@ pnpm test
 
 Run `pnpm seed` to populate the database with the following test accounts and sample packages.
 
-| Name            | Email                | Password | Role         | Unit |
-| --------------- | -------------------- | -------- | ------------ | ---- |
-| Admin User      | admin@lobbylog.com   | admin123 | ADMIN        | -    |
-| Carlos Portero  | recep@lobbylog.com   | recep123 | RECEPTIONIST | -    |
-| María García    | maria@lobbylog.com   | res1pass | RESIDENT     | 101  |
-| Juan Pérez      | juan@lobbylog.com    | res2pass | RESIDENT     | 202  |
+| Name           | Email              | Password | Role         | Unit |
+| -------------- | ------------------ | -------- | ------------ | ---- |
+| Admin User     | admin@lobbylog.com | admin123 | ADMIN        | -    |
+| Carlos Portero | recep@lobbylog.com | recep123 | RECEPTIONIST | -    |
+| María García   | maria@lobbylog.com | res1pass | RESIDENT     | 101  |
+| Juan Pérez     | juan@lobbylog.com  | res2pass | RESIDENT     | 202  |
 
 Sample packages are created for both residents in different statuses (PENDING, DELIVERED, CONFIRMED).
 
