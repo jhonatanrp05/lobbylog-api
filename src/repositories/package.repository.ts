@@ -14,12 +14,14 @@ export const findAllPackages = async () => {
 export const findPackagesByRecipient = async (recipientId: string) => {
   return await prisma.package.findMany({
     where: { recipientId },
+    include: { porter: { select: { name: true } } },
   });
 };
 
 export const findPackagesByPorter = async (porterId: string) => {
   return await prisma.package.findMany({
     where: { porterId },
+    include: { recipient: { select: { name: true, unit: true } } },
   });
 };
 
