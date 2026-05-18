@@ -19,5 +19,8 @@ export const login = async (email: string, password: string) => {
       expiresIn: "24h",
     },
   );
-  return { token };
+  return {
+    token,
+    user: { id: user.id, email: user.email, role: user.role },
+  };
 };
