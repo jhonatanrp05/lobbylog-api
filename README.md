@@ -64,11 +64,16 @@ pnpm test
 
 ## Demo credentials
 
-| User  | Email           | Password | Role  |
-| ----- | --------------- | -------- | ----- |
-| Admin | admin@admin.com | admin123 | ADMIN |
+Run `pnpm seed` to populate the database with the following test accounts and sample packages.
 
-> Receptionist and resident accounts are created by the admin through the admin panel.
+| Name            | Email                | Password | Role         | Unit |
+| --------------- | -------------------- | -------- | ------------ | ---- |
+| Admin User      | admin@lobbylog.com   | admin123 | ADMIN        | -    |
+| Carlos Portero  | recep@lobbylog.com   | recep123 | RECEPTIONIST | -    |
+| María García    | maria@lobbylog.com   | res1pass | RESIDENT     | 101  |
+| Juan Pérez      | juan@lobbylog.com    | res2pass | RESIDENT     | 202  |
+
+Sample packages are created for both residents in different statuses (PENDING, DELIVERED, CONFIRMED).
 
 ## Roles
 
@@ -90,6 +95,6 @@ pnpm test
 | GET    | /packages             | Yes  | ADMIN         | View all packages          |
 | POST   | /packages             | Yes  | RECEPTIONIST  | Register a new package     |
 | PATCH  | /packages/:id/deliver | Yes  | RECEPTIONIST  | Mark package as delivered  |
-| GET    | /packages/logged      | Yes  | RECEPTIONIST  | View packages I registered |
+| GET    | /packages/my-logged   | Yes  | RECEPTIONIST  | View packages I registered |
 | GET    | /packages/my          | Yes  | RESIDENT      | View my packages           |
 | PATCH  | /packages/:id/confirm | Yes  | RESIDENT      | Confirm package reception  |
