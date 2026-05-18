@@ -15,6 +15,8 @@ model User {
   unit      String?
   createdAt DateTime @default(now())
 
+  deletedAt DateTime?
+
   packagesReceived Package[] @relation("recipient")
   packagesLogged   Package[] @relation("porter")
 }
