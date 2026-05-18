@@ -8,6 +8,7 @@ import {
   deliverPackage,
   confirmPackage,
   getMyLoggedPackages,
+  deletePackage,
 } from "../services/package.service";
 
 export const createPackageController = async (req: Request, res: Response) => {
@@ -82,6 +83,20 @@ export const confirmPackageController = async (req: Request, res: Response) => {
     const userId = req.user!.id;
     const result = await confirmPackage(id, userId);
     res.status(200).json(result);
+  } catch (error) {
+    if (error instanceof AppError) {
+      res.status(error.statusCode).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unexpected error occurred." });
+    }
+  }
+};
+
+export const deletePackageController = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    await deletePackage(id);
+    res.status(200).json({ message: "Package deleted successfully." });
   } catch (error) {
     if (error instanceof AppError) {
       res.status(error.statusCode).json({ error: error.message });

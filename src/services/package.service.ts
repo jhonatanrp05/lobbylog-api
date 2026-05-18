@@ -5,11 +5,21 @@ import {
   findPackageById,
   updatePackageStatus,
   findPackagesByPorter,
+  deletePackageById,
 } from "../repositories/package.repository";
+import { findUserById } from "../repositories/user.repository";
 import { AppError, Package } from "../lib/types";
 
 export const createPackage = async (data: Package) => {
+  const recipient = await findUserById(data.recipientId);
+  if (!recipient) throw new AppError("Recipient not found", 404);
   return await createPackageInDB(data);
+};
+
+export const deletePackage = async (id: string) => {
+  const pkg = await findPackageById(id);
+  if (!pkg) throw new AppError("Package not found", 404);
+  return await deletePackageById(id);
 };
 
 export const getAllPackages = async () => {

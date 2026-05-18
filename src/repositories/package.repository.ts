@@ -32,6 +32,10 @@ export const findPackageById = async (id: string) => {
   return await prisma.package.findUnique({ where: { id } });
 };
 
+export const deletePackageById = async (id: string) => {
+  return await prisma.package.delete({ where: { id } });
+};
+
 export const updatePackageStatus = async (
   id: string,
   status: string,

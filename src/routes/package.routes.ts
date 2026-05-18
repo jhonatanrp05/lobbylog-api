@@ -11,6 +11,7 @@ import {
   deliverPackageController,
   confirmPackageController,
   getMyLoggedPackagesController,
+  deletePackageController,
 } from "../controllers/package.controller";
 
 const router = Router();
@@ -43,6 +44,13 @@ router.patch(
   roleMiddleware("RESIDENT"),
   validate(uuidParamSchema, "params"),
   confirmPackageController,
+);
+router.delete(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("ADMIN"),
+  validate(uuidParamSchema, "params"),
+  deletePackageController,
 );
 
 export default router;

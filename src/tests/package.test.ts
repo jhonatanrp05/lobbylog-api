@@ -86,4 +86,22 @@ describe("Packages", () => {
       .send({ description: "Test package", recipientId: "not-a-uuid" });
     expect(res.status).toBe(400);
   });
+
+  it("should return 404 when creating a package for a non-existent recipient", async () => {
+    const res = await request(app)
+      .post("/packages")
+      .set("Authorization", `Bearer ${receptionistToken}`)
+      .send({
+        description: "Test package",
+        recipientId: "00000000-0000-0000-0000-000000000000",
+      });
+    expect(res.status).toBe(404);
+  });
+
+  it("should return 403 when a resident tries to delete a package", async () => {
+    const res = await request(app)
+      .delete("/packages/00000000-0000-0000-0000-000000000000")
+      .set("Authorization", `Bearer ${residentToken}`);
+    expect(res.status).toBe(403);
+  });
 });
