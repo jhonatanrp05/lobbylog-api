@@ -14,7 +14,7 @@ export const loginController = async (req: Request, res: Response) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ user });
+    res.json({ token, user });
   } catch (error: unknown) {
     if (error instanceof AppError) {
       res.status(error.statusCode).json({ error: error.message });

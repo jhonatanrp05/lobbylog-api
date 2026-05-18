@@ -7,7 +7,10 @@ export const createPackage = async (data: Package) => {
 
 export const findAllPackages = async () => {
   return await prisma.package.findMany({
-    include: { recipient: true, porter: true },
+    include: {
+      recipient: { select: { name: true, unit: true } },
+      porter: { select: { name: true } },
+    },
   });
 };
 
