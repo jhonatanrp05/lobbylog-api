@@ -2,6 +2,7 @@ import {
   createUserController,
   deleteUserController,
   getAllUsersController,
+  getResidentsController,
 } from "../controllers/user.controller";
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware";
@@ -17,5 +18,6 @@ router.delete(
   deleteUserController,
 );
 router.get("/", authMiddleware, roleMiddleware("ADMIN"), getAllUsersController);
+router.get("/residents", authMiddleware, roleMiddleware("RECEPTIONIST"), getResidentsController);
 
 export default router;

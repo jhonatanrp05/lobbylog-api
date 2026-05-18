@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserInput, AppError } from "../lib/types";
-import { createUser, deleteUser, getAllUsers } from "../services/user.service";
+import { createUser, deleteUser, getAllUsers, getResidents } from "../services/user.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const data: CreateUserInput = req.body;
@@ -34,6 +34,15 @@ export const getAllUsersController = async (req: Request, res: Response) => {
   try {
     const users = await getAllUsers();
     res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: "An unexpected error occurred." });
+  }
+};
+
+export const getResidentsController = async (req: Request, res: Response) => {
+  try {
+    const residents = await getResidents();
+    res.status(200).json(residents);
   } catch (error) {
     res.status(500).json({ error: "An unexpected error occurred." });
   }

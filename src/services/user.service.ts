@@ -3,6 +3,7 @@ import {
   createUser as createUserInDB,
   deleteUserById,
   findAllUsers,
+  findAllResidents,
   findUserById,
 } from "../repositories/user.repository";
 import { CreateUserInput, AppError } from "../lib/types";
@@ -37,4 +38,8 @@ export const deleteUser = async (id: string) => {
 
 export const getAllUsers = async () => {
   return await findAllUsers();
+};
+
+export const getResidents = async () => {
+  return await findAllResidents();
 };

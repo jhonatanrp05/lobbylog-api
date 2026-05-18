@@ -32,3 +32,10 @@ export const deleteUserById = async (id: string) => {
     where: { id: id },
   });
 };
+
+export const findAllResidents = async () => {
+  return await prisma.user.findMany({
+    where: { role: "RESIDENT" },
+    select: { id: true, name: true, unit: true },
+  });
+};
