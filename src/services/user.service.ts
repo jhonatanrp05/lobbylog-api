@@ -8,13 +8,14 @@ import {
 } from "../repositories/user.repository";
 import { CreateUserInput, AppError } from "../lib/types";
 import bcrypt from "bcryptjs";
+import { randomBytes } from "crypto";
 
 export const createUser = async (data: CreateUserInput) => {
   if (await findUserByEmail(data.email)) {
     throw new AppError("User already exists", 409);
   }
 
-  const password = Math.random().toString(36).slice(-8);
+  const password = randomBytes(6).toString("base64url");
   const passwordhash = await bcrypt.hash(password, 10);
 
   const user = await createUserInDB({
