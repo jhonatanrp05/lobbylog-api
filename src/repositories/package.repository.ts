@@ -46,3 +46,13 @@ export const updatePackageStatus = async (
     data: { status, ...dateField },
   });
 };
+
+export const updatePackageDetails = async (
+  id: string,
+  data: { description: string; recipientId: string; photoUrl: string | null },
+) => {
+  return await prisma.package.update({
+    where: { id },
+    data,
+  });
+};

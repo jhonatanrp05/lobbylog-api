@@ -4,6 +4,7 @@ import {
   findPackagesByRecipient,
   findPackageById,
   updatePackageStatus,
+  updatePackageDetails,
   findPackagesByPorter,
   deletePackageById,
 } from "../repositories/package.repository";
@@ -14,6 +15,22 @@ export const createPackage = async (data: Package) => {
   const recipient = await findUserById(data.recipientId);
   if (!recipient) throw new AppError("Recipient not found", 404);
   return await createPackageInDB(data);
+};
+
+export const updatePackage = async (
+  id: string,
+  porterId: string,
+  data: { description: string; recipientId: string; photoUrl: string | null },
+) => {
+  const pkg = await findPackageById(id);
+  if (!pkg) throw new AppError("Package not found", 404);
+  if (pkg.porterId !== porterId)
+    throw new AppError("This package does not belong to you", 403);
+  if (pkg.status !== "PENDING")
+    throw new AppError("Only pending packages can be edited", 400);
+  const recipient = await findUserById(data.recipientId);
+  if (!recipient) throw new AppError("Recipient not found", 404);
+  return await updatePackageDetails(id, data);
 };
 
 export const deletePackage = async (id: string) => {

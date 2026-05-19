@@ -91,9 +91,11 @@ Sample packages are created for both residents in different statuses (PENDING, D
 | POST   | /auth/login           | No   | -             | Login                      |
 | GET    | /users                | Yes  | ADMIN         | List all users             |
 | POST   | /users                | Yes  | ADMIN         | Create user                |
+| PATCH  | /users/:id            | Yes  | ADMIN         | Update user                |
 | DELETE | /users/:id            | Yes  | ADMIN         | Delete user                |
 | GET    | /packages             | Yes  | ADMIN         | View all packages          |
 | POST   | /packages             | Yes  | RECEPTIONIST  | Register a new package     |
+| PATCH  | /packages/:id         | Yes  | RECEPTIONIST  | Edit a pending package     |
 | PATCH  | /packages/:id/deliver | Yes  | RECEPTIONIST  | Mark package as delivered  |
 | GET    | /packages/my-logged   | Yes  | RECEPTIONIST  | View packages I registered |
 | GET    | /packages/my          | Yes  | RESIDENT      | View my packages           |

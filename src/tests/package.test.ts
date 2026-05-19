@@ -104,4 +104,28 @@ describe("Packages", () => {
       .set("Authorization", `Bearer ${residentToken}`);
     expect(res.status).toBe(403);
   });
+
+  it("should return 403 when a resident tries to update a package", async () => {
+    const res = await request(app)
+      .patch("/packages/00000000-0000-0000-0000-000000000000")
+      .set("Authorization", `Bearer ${residentToken}`)
+      .send({
+        description: "Updated",
+        recipientId: "00000000-0000-0000-0000-000000000000",
+        photoUrl: null,
+      });
+    expect(res.status).toBe(403);
+  });
+
+  it("should return 404 when a receptionist updates a non-existent package", async () => {
+    const res = await request(app)
+      .patch("/packages/00000000-0000-0000-0000-000000000000")
+      .set("Authorization", `Bearer ${receptionistToken}`)
+      .send({
+        description: "Updated",
+        recipientId: "00000000-0000-0000-0000-000000000000",
+        photoUrl: null,
+      });
+    expect(res.status).toBe(404);
+  });
 });

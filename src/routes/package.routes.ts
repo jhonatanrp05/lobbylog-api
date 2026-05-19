@@ -3,7 +3,11 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { validate } from "../middlewares/validate.middleware";
-import { createPackageSchema, uuidParamSchema } from "../lib/schemas";
+import {
+  createPackageSchema,
+  updatePackageSchema,
+  uuidParamSchema,
+} from "../lib/schemas";
 import {
   createPackageController,
   getAllPackagesController,
@@ -11,6 +15,7 @@ import {
   deliverPackageController,
   confirmPackageController,
   getMyLoggedPackagesController,
+  updatePackageController,
   deletePackageController,
 } from "../controllers/package.controller";
 
@@ -44,6 +49,14 @@ router.patch(
   roleMiddleware("RESIDENT"),
   validate(uuidParamSchema, "params"),
   confirmPackageController,
+);
+router.patch(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("RECEPTIONIST"),
+  validate(uuidParamSchema, "params"),
+  validate(updatePackageSchema),
+  updatePackageController,
 );
 router.delete(
   "/:id",
