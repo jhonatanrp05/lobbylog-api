@@ -1,5 +1,5 @@
 import prisma from "../lib/prisma";
-import { User } from "../lib/types";
+import { User, CreateUserInput } from "../lib/types";
 
 export const createUser = async (data: User) => {
   return await prisma.user.create({
@@ -23,6 +23,14 @@ export const findAllUsers = async () => {
 export const findUserById = async (id: string) => {
   return await prisma.user.findFirst({
     where: { id, deletedAt: null },
+  });
+};
+
+export const updateUserById = async (id: string, data: CreateUserInput) => {
+  return await prisma.user.update({
+    where: { id },
+    data,
+    select: { id: true, name: true, email: true, role: true, unit: true },
   });
 };
 

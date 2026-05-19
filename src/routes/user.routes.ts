@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import {
   createUserController,
+  updateUserController,
   deleteUserController,
   getAllUsersController,
   getResidentsController,
@@ -9,7 +10,7 @@ import {
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { validate } from "../middlewares/validate.middleware";
-import { createUserSchema, uuidParamSchema } from "../lib/schemas";
+import { createUserSchema, updateUserSchema, uuidParamSchema } from "../lib/schemas";
 
 const router = Router();
 
@@ -20,6 +21,14 @@ router.post(
   roleMiddleware("ADMIN"),
   validate(createUserSchema),
   createUserController,
+);
+router.patch(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("ADMIN"),
+  validate(uuidParamSchema, "params"),
+  validate(updateUserSchema),
+  updateUserController,
 );
 router.delete(
   "/:id",

@@ -2,6 +2,7 @@ import {
   findUserByEmail,
   createUser as createUserInDB,
   deleteUserById,
+  updateUserById,
   findAllUsers,
   findAllResidents,
   findUserById,
@@ -29,10 +30,30 @@ export const createUser = async (data: CreateUserInput) => {
   return { email: user.email, password };
 };
 
+export const updateUser = async (id: string, data: CreateUserInput) => {
+  const user = await findUserById(id);
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+  if (user.role === "ADMIN") {
+    throw new AppError("Admin users cannot be edited", 403);
+  }
+  if (data.email !== user.email) {
+    const existing = await findUserByEmail(data.email);
+    if (existing) {
+      throw new AppError("A user with this email already exists", 409);
+    }
+  }
+  return await updateUserById(id, data);
+};
+
 export const deleteUser = async (id: string) => {
   const user = await findUserById(id);
   if (!user) {
     throw new AppError("User not found", 404);
+  }
+  if (user.role === "ADMIN") {
+    throw new AppError("Admin users cannot be deleted", 403);
   }
   return await deleteUserById(user.id);
 };
