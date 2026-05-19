@@ -77,7 +77,7 @@ Sample packages are created for both residents in different statuses (PENDING, D
 
 ## Roles
 
-- **ADMIN** — Has full visibility over all records and users. Can create and delete receptionist and resident accounts, and can delete package records that were registered by mistake.
+- **ADMIN** — Has full visibility over all records and users. Can create, edit, and delete receptionist and resident accounts, edit any package regardless of status, and delete package records.
 
 - **RECEPTIONIST** — The security personnel at the building entrance. When a package arrives, they create a new package record and assign it to the corresponding resident. Once the resident picks it up, they mark it as delivered.
 
@@ -93,9 +93,10 @@ Sample packages are created for both residents in different statuses (PENDING, D
 | POST   | /users                | Yes  | ADMIN         | Create user                |
 | PATCH  | /users/:id            | Yes  | ADMIN         | Update user                |
 | DELETE | /users/:id            | Yes  | ADMIN         | Delete user                |
+| GET    | /users/residents      | Yes  | RECEPTIONIST, ADMIN | List residents        |
 | GET    | /packages             | Yes  | ADMIN         | View all packages          |
 | POST   | /packages             | Yes  | RECEPTIONIST  | Register a new package     |
-| PATCH  | /packages/:id         | Yes  | RECEPTIONIST  | Edit a pending package     |
+| PATCH  | /packages/:id         | Yes  | RECEPTIONIST, ADMIN | Edit a package        |
 | PATCH  | /packages/:id/deliver | Yes  | RECEPTIONIST  | Mark package as delivered  |
 | GET    | /packages/my-logged   | Yes  | RECEPTIONIST  | View packages I registered |
 | GET    | /packages/my          | Yes  | RESIDENT      | View my packages           |
