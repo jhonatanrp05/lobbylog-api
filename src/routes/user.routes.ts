@@ -40,7 +40,7 @@ router.delete(
 router.get(
   "/residents",
   authMiddleware,
-  roleMiddleware("RECEPTIONIST"),
+  roleMiddleware(["RECEPTIONIST", "ADMIN"]),
   getResidentsController,
 );
 

@@ -53,7 +53,7 @@ router.patch(
 router.patch(
   "/:id",
   authMiddleware,
-  roleMiddleware("RECEPTIONIST"),
+  roleMiddleware(["RECEPTIONIST", "ADMIN"]),
   validate(uuidParamSchema, "params"),
   validate(updatePackageSchema),
   updatePackageController,
